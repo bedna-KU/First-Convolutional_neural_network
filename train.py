@@ -12,20 +12,22 @@ import json
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-###################################################
+####################################################
 # PARAMETERS
-###################################################
+####################################################
 
-IMG_WIDTH = 50
-IMG_HEIGHT = 50
-IMG_COLOR_DEPTH = 1
-INPUT_SHAPE = IMG_HEIGHT, IMG_WIDTH, IMG_COLOR_DEPTH
-NUM_CLASSES = 2
-BATCH_SIZE = 32
-EPOCHS = 20
-WEIGHTPATH = "weights.hdf5"
+IMG_WIDTH = 50			# Input image width
+IMG_HEIGHT = 50			# Input image height
+IMG_COLOR_DEPTH = 1		# Color depth
+INPUT_SHAPE = (IMG_HEIGHT,
+               IMG_WIDTH,
+               IMG_COLOR_DEPTH)	# Input shape size
+NUM_CLASSES = 2			# Number of classes
+BATCH_SIZE = 32			# Batch for images
+EPOCHS = 20			# Count of epochs
+WEIGHTPATH = "weights.hdf5"	# File with height
 
-###################################################
+####################################################
 
 # Set input args
 ap = argparse.ArgumentParser ()
