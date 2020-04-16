@@ -40,7 +40,9 @@ Create dataset with 80% train and 20% test images
 ## Predict single image
 `python3 predict.py image.jpg`
 
-**image.jpg**Image for prediction
+**image.jpg** Image for prediction
 
-# Predict images from desktop
+## Predict images from desktop
 python3 predict_live.py
+
+![live predict keras](https://github.com/bedna-KU/First-Convolutional_neural_network/raw/master/live_predict_keras.gif)
