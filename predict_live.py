@@ -15,23 +15,33 @@ from screeninfo import get_monitors
 # Suppresses messages from TensorFlow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-####################################################
+#######################################################
 # PARAMETERS
-####################################################
+#######################################################
 
-IMG_WIDTH = 50
-IMG_HEIGHT = 50
-IMG_COLOR_DEPTH = 1
-INPUT_SHAPE = IMG_HEIGHT, IMG_WIDTH, IMG_COLOR_DEPTH
-NUM_CLASSES = 2
-BATCH_SIZE = 1
-WEIGHTPATH = "weights.hdf5"
+IMG_WIDTH = 50					# Width of input image
+IMG_HEIGHT = 50					# Height of input image
+IMG_COLOR_DEPTH = 1				# Image color channels
+INPUT_SHAPE = (IMG_HEIGHT,
+               IMG_WIDTH,
+               IMG_COLOR_DEPTH)	# Input image shape
+NUM_CLASSES = 2					# Number of classes
+BATCH_SIZE = 1					# Batch size
+WEIGHTPATH = "weights.hdf5"		# File with height
+SHIFT = 268						# Shift from up
+SPACE = 60						# Spaces between images
+STARTX = 0						# Start X position
+STARTY = 0						# Start Y position
+CROPX = 159						# Width of image
+CROPY = 180						# Height of image
 
-####################################################
+#######################################################
 
+# Get desktop resolution
 desk_width = get_monitors ()[0].width
 desk_height = get_monitors ()[0].height
 
+# Read JSON file with classes
 def read_classes ():
 	with open ('classes.json') as json_file:
 		classes = json.load (json_file)
@@ -66,7 +76,7 @@ def load_weights ():
 	else:
 		exit (">>> File with weights no exist!")
 
-# Predict class
+# Predict image class
 def predict (image):
 	img_in = cv2.resize (image, dsize = (IMG_HEIGHT, IMG_WIDTH), interpolation = cv2.INTER_CUBIC)
 	img_in = img_in.astype ('float') / 255
@@ -79,17 +89,10 @@ def predict (image):
 
 # Capture and draw desktop
 def scan_desktop ():
+	global SHIFT, SPACE, STARTX, STARTY, CROPX, CROPY
 	# Set screen capture
-	shift = 115
-	monitor = {"top": shift, "left": 0, "width": desk_width // 2, "height": desk_height - shift}
+	monitor = {"top": SHIFT, "left": 0, "width": desk_width // 2, "height": desk_height - SHIFT}
 
-	# Set scan
-	startx = 0
-	starty = 0
-	cropx = 159
-	cropy = 150
-
-	# Set preview window
 	window_name = "Preview"
 	cv2.namedWindow (window_name)
 	cv2.moveWindow (window_name, desk_width // 2, 30)
@@ -100,31 +103,38 @@ def scan_desktop ():
 			# Get raw pixels from the screen, save it to a Numpy array
 			img = np.array (sct.grab (monitor))
 			# Yaxis scan
-			while starty + cropy < desk_height:
+			while STARTY + CROPY < desk_height:
 				# Xaxis scan
-				while startx + cropx < desk_width // 2:
-					crop_img = img[starty : starty + cropy, startx : startx + cropx]
+				while STARTX + CROPX < desk_width // 2:
+					crop_img = img[STARTY : STARTY + CROPY, STARTX : STARTX + CROPX]
 					crop_img = cv2.cvtColor (crop_img, cv2.COLOR_RGB2GRAY)
 					result = predict (crop_img)
-					print (">>> result", result)
-					if result != "mom":
-						img = cv2.rectangle (img, (startx, starty), (startx + cropx, starty + cropy), (255, 0, 0), -1)
+					if result == "mom":
+						img = cv2.rectangle (img, (STARTX, STARTY), (STARTX + CROPX, STARTY + CROPY), (0, 255, 0), 3)
+					else:
+						img = cv2.rectangle (img, (STARTX, STARTY), (STARTX + CROPX, STARTY + CROPY), (0, 0, 255), -1)
 					# Display the picture
 					cv2.imshow (window_name, img)
 					# Press "q" to quit
 					if cv2.waitKey (25) & 0xFF == ord ("q"):
 						cv2.destroyAllWindows ()
 						exit ("END")
-					startx += cropx
-				startx = 0
-				starty += cropy
-			starty = 0
+
+					STARTX += CROPX
+
+				STARTX = 0
+				STARTY += CROPY + SPACE
+			STARTY = 0
 
 classes = read_classes ()
 model = create_model (INPUT_SHAPE, NUM_CLASSES)
 load_weights ()
-# ~ image = load_image ()
-# ~ result = predict (image)
-# ~ print (result)
+scan_desktop ()
+
+
+
+classes = read_classes ()
+model = create_model (INPUT_SHAPE, NUM_CLASSES)
+load_weights ()
 scan_desktop ()
 
