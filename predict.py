@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint
 from keras.models import Sequential
