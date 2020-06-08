@@ -3,6 +3,12 @@ Example CNN from Wikipedia https://en.wikipedia.org/wiki/Convolutional_neural_ne
 ## Why
 Blog in Slovak language https://linuxos.sk/blog/zumpa/detail/umela-inteligencia-prvy-prakticky-priklad-v-r/
 
+## Installation
+python3 -m pip install -r requirements.txt
+git clone https://github.com/bedna-KU/First-Convolutional_neural_network.git
+cd First-Convolutional_neural_network
+
+## Files
     divide.py       - Divide images on train and test
     predict.py      - Predict single image
     predict_live.py - Predict images on desktop - live video
