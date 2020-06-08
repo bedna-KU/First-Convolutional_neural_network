@@ -1,5 +1,7 @@
 # Your first Convolutional neural network with Keras
 Example CNN from Wikipedia https://en.wikipedia.org/wiki/Convolutional_neural_network#/media/File:Typical_cnn.png
+## Why
+Blog in Slovak language https://linuxos.sk/blog/zumpa/detail/umela-inteligencia-prvy-prakticky-priklad-v-r/
 
     divide.py       - Divide images on train and test
     predict.py      - Predict single image
