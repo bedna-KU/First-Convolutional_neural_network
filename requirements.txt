@@ -1,4 +1,3 @@
-tensorflow==2.0.3
 keras
 argparse
 termcolor

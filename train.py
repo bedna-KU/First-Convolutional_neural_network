@@ -4,7 +4,6 @@ from keras.layers import Dense, Conv2D, MaxPooling2D, Flatten
 from keras.optimizers import Adam
 from keras.losses import categorical_crossentropy
 from keras.callbacks import ModelCheckpoint
-from keras.utils.vis_utils import plot_model
 from keras.preprocessing.image import ImageDataGenerator
 from termcolor import cprint
 import os
@@ -66,7 +65,7 @@ def load_dataset ():
 
 	cprint ("Train", 'yellow', attrs = ['bold'])
 	# Load training dataset
-	train_data = datagen.flow_from_directory ('data/train/',
+	train_data = datagen.flow_from_directory (os.path.join (input, 'train'),
 											target_size = (IMG_HEIGHT, IMG_WIDTH),
 											color_mode = 'grayscale',
 											class_mode = 'categorical',
@@ -74,7 +73,7 @@ def load_dataset ():
 
 	cprint ("Test", 'yellow', attrs = ['bold'])
 	# Load test dataset
-	test_data = datagen.flow_from_directory ('data/test/',
+	test_data = datagen.flow_from_directory (os.path.join (input, "test"),
 										  target_size = (IMG_HEIGHT, IMG_WIDTH),
 										  color_mode = 'grayscale',
 										  class_mode = 'categorical',
