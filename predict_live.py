@@ -104,7 +104,7 @@ def scan_desktop ():
 			# Get raw pixels from the screen, save it to a Numpy array
 			img = np.array (sct.grab (monitor))
 			# Yaxis scan
-			while STARTY + CROPY < desk_height:
+			while STARTY + CROPY + SHIFT < desk_height:
 				# Xaxis scan
 				while STARTX + CROPX < desk_width // 2:
 					crop_img = img[STARTY : STARTY + CROPY, STARTX : STARTX + CROPX]
