@@ -4,9 +4,9 @@ Example CNN from Wikipedia https://en.wikipedia.org/wiki/Convolutional_neural_ne
 Blog in Slovak language https://linuxos.sk/blog/zumpa/detail/umela-inteligencia-prvy-prakticky-priklad-v-r/
 
 ## Installation
-git clone https://github.com/bedna-KU/First-Convolutional_neural_network.git
-cd First-Convolutional_neural_network
-python3 -m pip install -r requirements.txt
+    git clone https://github.com/bedna-KU/First-Convolutional_neural_network.git
+    cd First-Convolutional_neural_network
+    python3 -m pip install -r requirements.txt
 
 ## Files
     divide.py       - Divide images on train and test
@@ -51,6 +51,6 @@ Create dataset with 80% train and 20% test images
 **image.jpg** Image for prediction
 
 ## Predict images from desktop
-python3 predict_live.py
+`python3 predict_live.py`
 
 ![live predict keras](https://github.com/bedna-KU/First-Convolutional_neural_network/raw/master/live_predict_keras.gif)
